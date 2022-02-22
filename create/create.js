@@ -12,9 +12,11 @@ form.addEventListener('submit', async (e) => {
     // prevent default
     e.preventDefault();
     // get the name and family id from the form
-    
+    const newForm = new FormData(form);
+    const bunny = ({ name: newForm.get('bunny-name'), family_id: newForm.get('family-id') });
+    //console.log(bunny);
     // use createBunny to create a bunny with this name and family id
-    
+    await createBunny(bunny);
     form.reset();
 });
 
