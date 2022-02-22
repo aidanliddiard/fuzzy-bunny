@@ -11,8 +11,9 @@ logoutButton.addEventListener('click', () => {
 
 //console.log(await getFamilies());
 
-async function displayFamilies(families) {
+async function displayFamilies() {
     // fetch families from supabase
+    const families = await getFamilies();
     //console.log(families);
     // clear out the familiesEl
     familiesEl.textContent = '';
@@ -46,11 +47,17 @@ async function displayFamilies(families) {
             const bunnyDiv = document.createElement('div');
             bunnyDiv.classList.add('bunny');
             bunnyDiv.textContent = bunny.name;
+            //    add an event listener to the bunny el. On click, delete the bunny, then refetch and redisplay all families.
+            bunnyDiv.addEventListener('click', async () => {
+                await deleteBunny(bunny.id);
+                displayFamilies();
+            });
+
             bunniesDiv.append(bunnyDiv);
+            
         }
         
         familyDiv.append(h3, bunniesDiv);
-        //    add an event listener to the bunny el. On click, delete the bunny, then refetch and redisplay all families.
 
         // append this bunnyEl to the bunniesEl
 
@@ -60,6 +67,7 @@ async function displayFamilies(families) {
     // append the bunniesEl and nameEl to the familyEl
     // append the familyEl to the familiesEl
 }
+
 
 
 window.addEventListener('load', async () => {
